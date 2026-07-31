@@ -62,6 +62,13 @@ mkdir -p ~/.kimi-code/skills/llm-wiki-nano
 cp -r SKILL.md resources ~/.kimi-code/skills/llm-wiki-nano/
 ```
 
+Note for Kimi Code users: the `SKILL.md` frontmatter carries one
+Kimi-specific extension field, `whenToUse`, to improve automatic
+triggering. Other agents ignore unknown frontmatter fields, so runtime
+portability is unaffected — but be aware `skills-ref validate` flags
+`whenToUse` as a non-standard field; that failure is expected and
+deliberate.
+
 ## Quick start
 
 ```bash

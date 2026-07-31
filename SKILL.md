@@ -2,6 +2,7 @@
 name: llm-wiki-nano
 description: Build and maintain a persistent, LLM-curated markdown wiki from a collection of documents — the minimal implementation of Karpathy's LLM Wiki pattern. Use when the user wants to ingest documents/sources into a knowledge wiki, query an existing wiki, find contradictions or common threads across documents, or synthesize scattered docs into structured, evolving knowledge.
 license: MIT
+whenToUse: When the user wants to ingest a document into their knowledge wiki, add a source, ask questions over previously ingested sources, find contradictions across documents, or lint/health-check the wiki.
 ---
 
 # llm-wiki-nano
