@@ -9,7 +9,8 @@ a different file with a different audience.)
 llm-wiki-nano is a zero-code agent skill implementing Karpathy's LLM Wiki
 pattern. **The artifacts of this repo are prose, not programs.** `SKILL.md`
 is loaded into an agent's context at runtime; everything in `resources/` is
-referenced from it. There is no build, no test suite, no CI.
+referenced from it. There is no build, no test suite, no CI. (The single
+exception: the `install` script — see the prime directive below.)
 
 ## The prime directive
 
@@ -68,6 +69,22 @@ There is no automation. The test loop is manual:
 4. Judge: did the agent follow the modified rule? Did pages cite anchors?
    Were contradictions marked rather than resolved?
 5. A change that cannot be verified this way is not ready.
+
+### Testing `install`
+
+Never test the installer against your real home directory. Sandbox it:
+
+```bash
+export HOME=/tmp/fakehome && mkdir -p "$HOME/.kimi-code"
+tar -czf /tmp/repo.tar.gz --exclude=.git -C <repo-parent> llm-wiki-nano
+cat ./install | LLM_WIKI_NANO_TARBALL="file:///tmp/repo.tar.gz" bash
+```
+
+Pipe through `bash` (not `./install`) even for local tests — piped
+execution is the real distribution path and behaves differently (`$0` is
+not a file; learned from a broken `usage()`). After pushing installer
+changes, also test the real URL once; GitHub's raw CDN caches for ~5
+minutes, so pin URLs to the `main` branch name, never the `HEAD` alias.
 
 ## Commit conventions
 

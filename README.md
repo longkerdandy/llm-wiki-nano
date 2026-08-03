@@ -29,6 +29,7 @@ SKILL.md                        # the entire skill: layout, 3 operations, 6 hard
 resources/
 ├── page-templates.md           # source / concept / entity / synthesis page formats
 └── agents-template.md          # optional per-wiki domain conventions
+install                         # optional one-command installer (curl | bash)
 ```
 
 ## What you get
