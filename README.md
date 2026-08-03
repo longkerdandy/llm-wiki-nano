@@ -53,6 +53,13 @@ Codex, ...). Copy or symlink the two files into your agent's skill directory:
 git clone https://github.com/<you>/llm-wiki-nano.git
 cd llm-wiki-nano
 
+./install.sh            # auto-detect Kimi Code / Claude Code / shared dir
+./install.sh kimi       # or pick a target: kimi | claude | agents | all
+```
+
+Or install by hand:
+
+```bash
 # Claude Code
 mkdir -p ~/.claude/skills/llm-wiki-nano
 cp -r SKILL.md resources ~/.claude/skills/llm-wiki-nano/

@@ -19,6 +19,11 @@ proposition is that the pattern needs none of that. If a problem seems to
 call for tooling, solve it with better instructions first; if that is truly
 impossible, open an issue instead of committing code.
 
+Exception: `install.sh` was added at the repo owner's explicit request
+(one-command install). It is the only permitted script: POSIX sh, cp/mkdir
+only, no logic beyond copying the skill into agent skill directories. Do
+not add further scripts without an equally explicit exemption.
+
 ## File inventory
 
 | File | Audience | Role |
@@ -26,6 +31,7 @@ impossible, open an issue instead of committing code.
 | `SKILL.md` | agents at runtime | The skill. Trigger conditions, wiki layout, 3 operations, 6 hard rules |
 | `resources/page-templates.md` | agents at runtime | Page formats, loaded on demand from SKILL.md |
 | `resources/agents-template.md` | wiki owners | Optional per-wiki domain conventions template |
+| `install.sh` | humans | One-command installer (exception to the prime directive) |
 | `README.md` | humans | Pitch, install, quickstart, philosophy |
 | `AGENTS.md` | agents editing this repo | This file |
 
