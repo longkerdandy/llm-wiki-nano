@@ -60,8 +60,7 @@ The installer auto-detects Kimi Code, Claude Code, and the shared
 curl -fsSL https://raw.githubusercontent.com/<you>/llm-wiki-nano/HEAD/install.sh | bash -s -- kimi   # kimi | claude | agents | all
 ```
 
-If you have the repo cloned already, the same script works locally
-(`./install.sh`, same arguments). Or install by hand:
+Or install by hand:
 
 ```bash
 # Claude Code
