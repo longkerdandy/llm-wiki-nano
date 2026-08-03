@@ -50,14 +50,14 @@ Works with any agent that supports SKILL.md skills (Claude Code, Kimi Code,
 Codex, ...). One command, nothing to clone first:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/longkerdandy/llm-wiki-nano/master/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/longkerdandy/llm-wiki-nano/main/install | bash
 ```
 
 The installer auto-detects Kimi Code, Claude Code, and the shared
 `~/.agents/skills` directory. To pick a target explicitly:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/longkerdandy/llm-wiki-nano/master/install.sh | bash -s -- kimi   # kimi | claude | agents | all
+curl -fsSL https://raw.githubusercontent.com/longkerdandy/llm-wiki-nano/main/install | bash -s -- kimi   # kimi | claude | agents | all
 ```
 
 Or install by hand:

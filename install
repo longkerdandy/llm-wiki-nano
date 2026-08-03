@@ -1,11 +1,11 @@
 #!/bin/sh
-# install.sh — remote one-command installer for the llm-wiki-nano skill.
+# install — remote one-command installer for the llm-wiki-nano skill.
 #
 # NOTE: deliberate exception to the repo's "no code" prime directive,
 # granted by the repo owner. POSIX sh + curl/wget + tar only.
 #
 # Usage (nothing to clone first):
-#   curl -fsSL https://raw.githubusercontent.com/longkerdandy/llm-wiki-nano/master/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/longkerdandy/llm-wiki-nano/main/install | bash
 #   curl -fsSL ... | bash -s -- TARGET
 #
 # TARGET: kimi (~/.kimi-code/skills/), claude (~/.claude/skills/),
@@ -15,11 +15,11 @@ set -eu
 NAME=llm-wiki-nano
 # Override for testing/mirrors:
 REPO="${LLM_WIKI_NANO_REPO:-longkerdandy/llm-wiki-nano}"
-TARBALL="${LLM_WIKI_NANO_TARBALL:-https://codeload.github.com/$REPO/tar.gz/master}"
+TARBALL="${LLM_WIKI_NANO_TARBALL:-https://codeload.github.com/$REPO/tar.gz/main}"
 
 usage() {
     cat <<'EOF'
-usage: curl -fsSL https://raw.githubusercontent.com/longkerdandy/llm-wiki-nano/master/install.sh | bash [-s -- TARGET]
+usage: curl -fsSL https://raw.githubusercontent.com/longkerdandy/llm-wiki-nano/main/install | bash [-s -- TARGET]
 TARGET: kimi (~/.kimi-code/skills/), claude (~/.claude/skills/),
 agents (~/.agents/skills/), all; default is every detected agent dir.
 EOF
