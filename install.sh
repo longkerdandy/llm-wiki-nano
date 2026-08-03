@@ -5,7 +5,7 @@
 # granted by the repo owner. POSIX sh + curl/wget + tar only.
 #
 # Usage (nothing to clone first):
-#   curl -fsSL https://raw.githubusercontent.com/longkerdandy/llm-wiki-nano/HEAD/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/longkerdandy/llm-wiki-nano/master/install.sh | bash
 #   curl -fsSL ... | bash -s -- TARGET
 #
 # TARGET: kimi (~/.kimi-code/skills/), claude (~/.claude/skills/),
@@ -15,11 +15,11 @@ set -eu
 NAME=llm-wiki-nano
 # Override for testing/mirrors:
 REPO="${LLM_WIKI_NANO_REPO:-longkerdandy/llm-wiki-nano}"
-TARBALL="${LLM_WIKI_NANO_TARBALL:-https://codeload.github.com/$REPO/tar.gz/HEAD}"
+TARBALL="${LLM_WIKI_NANO_TARBALL:-https://codeload.github.com/$REPO/tar.gz/master}"
 
 usage() {
     cat <<'EOF'
-usage: curl -fsSL https://raw.githubusercontent.com/longkerdandy/llm-wiki-nano/HEAD/install.sh | bash [-s -- TARGET]
+usage: curl -fsSL https://raw.githubusercontent.com/longkerdandy/llm-wiki-nano/master/install.sh | bash [-s -- TARGET]
 TARGET: kimi (~/.kimi-code/skills/), claude (~/.claude/skills/),
 agents (~/.agents/skills/), all; default is every detected agent dir.
 EOF
