@@ -20,9 +20,11 @@ call for tooling, solve it with better instructions first; if that is truly
 impossible, open an issue instead of committing code.
 
 Exception: `install.sh` was added at the repo owner's explicit request
-(one-command install). It is the only permitted script: POSIX sh, cp/mkdir
-only, no logic beyond copying the skill into agent skill directories. Do
-not add further scripts without an equally explicit exemption.
+(one-command install, including `curl | bash` remote installs). It is the
+only permitted script: POSIX sh, no logic beyond optionally downloading
+the repo tarball (curl/wget + tar) and copying the skill into agent
+skill directories. Do not add further scripts without an equally
+explicit exemption.
 
 ## File inventory
 

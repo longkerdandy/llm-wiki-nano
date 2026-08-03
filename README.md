@@ -47,17 +47,21 @@ resources/
 ## Install
 
 Works with any agent that supports SKILL.md skills (Claude Code, Kimi Code,
-Codex, ...). Copy or symlink the two files into your agent's skill directory:
+Codex, ...). One command, nothing to clone first:
 
 ```bash
-git clone https://github.com/<you>/llm-wiki-nano.git
-cd llm-wiki-nano
-
-./install.sh            # auto-detect Kimi Code / Claude Code / shared dir
-./install.sh kimi       # or pick a target: kimi | claude | agents | all
+curl -fsSL https://raw.githubusercontent.com/<you>/llm-wiki-nano/HEAD/install.sh | bash
 ```
 
-Or install by hand:
+The installer auto-detects Kimi Code, Claude Code, and the shared
+`~/.agents/skills` directory. To pick a target explicitly:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/<you>/llm-wiki-nano/HEAD/install.sh | bash -s -- kimi   # kimi | claude | agents | all
+```
+
+If you have the repo cloned already, the same script works locally
+(`./install.sh`, same arguments). Or install by hand:
 
 ```bash
 # Claude Code
