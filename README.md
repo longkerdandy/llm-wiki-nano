@@ -47,30 +47,33 @@ install                         # optional one-command installer (curl | bash)
 
 ## Install
 
-Works with any agent that supports SKILL.md skills (Claude Code, Kimi Code,
-Codex, ...). One command, nothing to clone first:
+One command, nothing to clone first. Run it from your project root:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/longkerdandy/llm-wiki-nano/main/install | bash
 ```
 
-The installer auto-detects Kimi Code, Claude Code, and the shared
-`~/.agents/skills` directory. To pick a target explicitly:
+This installs the skill into `.agents/skills/` in the current directory — a
+location scanned natively by Kimi Code, GitHub Copilot CLI, Codex, and other
+agents that follow the Agent Skills standard. Two switches adjust where the
+copies land:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/longkerdandy/llm-wiki-nano/main/install | bash -s -- kimi   # kimi | claude | agents | all
+# user level instead: ~/.agents/skills/, applies to all your projects
+curl -fsSL https://raw.githubusercontent.com/longkerdandy/llm-wiki-nano/main/install | bash -s -- --global
+
+# also copy to .claude/skills/ for Claude Code, which does not scan .agents/skills/
+curl -fsSL https://raw.githubusercontent.com/longkerdandy/llm-wiki-nano/main/install | bash -s -- --claude
+
+# combine: user level, plus ~/.claude/skills/
+curl -fsSL https://raw.githubusercontent.com/longkerdandy/llm-wiki-nano/main/install | bash -s -- --global --claude
 ```
 
 Or install by hand:
 
 ```bash
-# Claude Code
-mkdir -p ~/.claude/skills/llm-wiki-nano
-cp -r SKILL.md resources ~/.claude/skills/llm-wiki-nano/
-
-# Kimi Code
-mkdir -p ~/.kimi-code/skills/llm-wiki-nano
-cp -r SKILL.md resources ~/.kimi-code/skills/llm-wiki-nano/
+mkdir -p .agents/skills/llm-wiki-nano
+cp -r SKILL.md resources .agents/skills/llm-wiki-nano/
 ```
 
 Note for Kimi Code users: the `SKILL.md` frontmatter carries one

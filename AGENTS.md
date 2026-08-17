@@ -72,19 +72,23 @@ There is no automation. The test loop is manual:
 
 ### Testing `install`
 
-Never test the installer against your real home directory. Sandbox it:
+Never test the installer against your real home directory or a real
+project. Sandbox both sides:
 
 ```bash
-export HOME=/tmp/fakehome && mkdir -p "$HOME/.kimi-code"
+export HOME=/tmp/fakehome && mkdir -p "$HOME"
 tar -czf /tmp/repo.tar.gz --exclude=.git -C <repo-parent> llm-wiki-nano
-cat ./install | LLM_WIKI_NANO_TARBALL="file:///tmp/repo.tar.gz" bash
+mkdir -p /tmp/fakeproj && cd /tmp/fakeproj
+cat /path/to/install | LLM_WIKI_NANO_TARBALL="file:///tmp/repo.tar.gz" bash
+cat /path/to/install | LLM_WIKI_NANO_TARBALL="file:///tmp/repo.tar.gz" bash -s -- --global --claude
 ```
 
-Pipe through `bash` (not `./install`) even for local tests — piped
-execution is the real distribution path and behaves differently (`$0` is
-not a file; learned from a broken `usage()`). After pushing installer
-changes, also test the real URL once; GitHub's raw CDN caches for ~5
-minutes, so pin URLs to the `main` branch name, never the `HEAD` alias.
+Cover all four scope × `--claude` combinations. Pipe through `bash` (not
+`./install`) even for local tests — piped execution is the real
+distribution path and behaves differently (`$0` is not a file; learned
+from a broken `usage()`). After pushing installer changes, also test the
+real URL once; GitHub's raw CDN caches for ~5 minutes, so pin URLs to the
+`main` branch name, never the `HEAD` alias.
 
 ## Commit conventions
 

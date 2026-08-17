@@ -4,12 +4,16 @@
 # NOTE: deliberate exception to the repo's "no code" prime directive,
 # granted by the repo owner. POSIX sh + curl/wget + tar only.
 #
-# Usage (nothing to clone first):
+# Usage (nothing to clone first) — run it from your project root:
 #   curl -fsSL https://raw.githubusercontent.com/longkerdandy/llm-wiki-nano/main/install | bash
-#   curl -fsSL ... | bash -s -- TARGET
+#   curl -fsSL ... | bash -s -- [--global] [--claude]
 #
-# TARGET: kimi (~/.kimi-code/skills/), claude (~/.claude/skills/),
-# agents (~/.agents/skills/), all; default is every detected agent dir.
+# Default: installs into .agents/skills/ of the current directory (project
+# level), scanned natively by Kimi Code, GitHub Copilot CLI, Codex, and
+# other agents following the Agent Skills standard.
+# --global installs into ~/.agents/skills/ (user level) instead.
+# --claude additionally copies into .claude/skills/ (or ~/.claude/skills/
+# with --global) for Claude Code, which does not scan .agents/skills/.
 set -eu
 
 NAME=llm-wiki-nano
@@ -19,39 +23,27 @@ TARBALL="${LLM_WIKI_NANO_TARBALL:-https://codeload.github.com/$REPO/tar.gz/main}
 
 usage() {
     cat <<'EOF'
-usage: curl -fsSL https://raw.githubusercontent.com/longkerdandy/llm-wiki-nano/main/install | bash [-s -- TARGET]
-TARGET: kimi (~/.kimi-code/skills/), claude (~/.claude/skills/),
-agents (~/.agents/skills/), all; default is every detected agent dir.
+usage: curl -fsSL https://raw.githubusercontent.com/longkerdandy/llm-wiki-nano/main/install | bash [-s -- [--global] [--claude]]
+
+Installs the llm-wiki-nano skill into .agents/skills/ of the current
+directory (run it from your project root). Options:
+
+  --global    install into ~/.agents/skills/ instead (user level)
+  --claude    also copy into .claude/skills/ for Claude Code
+  -h, --help  show this help
 EOF
 }
 
-case "${1:-auto}" in
-    auto)
-        targets=""
-        [ -d "$HOME/.kimi-code" ] && targets="$targets kimi"
-        [ -d "$HOME/.claude" ] && targets="$targets claude"
-        [ -d "$HOME/.agents/skills" ] && targets="$targets agents"
-        if [ -z "$targets" ]; then
-            echo "no agent directory detected; run one of:" >&2
-            echo "  $0 kimi|claude|agents|all" >&2
-            exit 1
-        fi
-        ;;
-    all)
-        targets="kimi claude agents"
-        ;;
-    kimi|claude|agents)
-        targets="$1"
-        ;;
-    -h|--help)
-        usage
-        exit 0
-        ;;
-    *)
-        usage >&2
-        exit 1
-        ;;
-esac
+root=$PWD
+claude=false
+for arg in "$@"; do
+    case "$arg" in
+        --global)   root=$HOME ;;
+        --claude)   claude=true ;;
+        -h|--help)  usage; exit 0 ;;
+        *)          usage >&2; exit 1 ;;
+    esac
+done
 
 TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
@@ -68,12 +60,11 @@ mkdir -p "$TMP/repo"
 tar -xzf "$TMP/repo.tar.gz" -C "$TMP/repo" --strip-components=1
 [ -f "$TMP/repo/SKILL.md" ] || { echo "error: tarball did not contain SKILL.md" >&2; exit 1; }
 
-for t in $targets; do
-    case "$t" in
-        kimi)   dest="$HOME/.kimi-code/skills/$NAME" ;;
-        claude) dest="$HOME/.claude/skills/$NAME" ;;
-        agents) dest="$HOME/.agents/skills/$NAME" ;;
-    esac
+dests="$root/.agents/skills/$NAME"
+if [ "$claude" = true ]; then
+    dests="$dests $root/.claude/skills/$NAME"
+fi
+for dest in $dests; do
     rm -rf "$dest"
     mkdir -p "$dest"
     cp -R "$TMP/repo/SKILL.md" "$TMP/repo/resources" "$dest/"
