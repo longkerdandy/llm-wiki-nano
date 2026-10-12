@@ -5,6 +5,10 @@
      SKILL.md; this file holds only what is specific to THIS wiki.
      Co-evolve it: add a line whenever the human corrects the agent. -->
 
+Skill: llm-wiki-nano ⚠️ <version this wiki is maintained under, e.g.
+0.1.0 — see the `version:` field in the installed SKILL.md; after a skill
+upgrade, run lint under the new rules and bump this line>
+
 ## Domain
 
 ⚠️ One paragraph: what this wiki is about, what kinds of sources it

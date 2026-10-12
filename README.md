@@ -80,6 +80,19 @@ mkdir -p .agents/skills/llm-wiki-nano
 cp -r SKILL.md resources .agents/skills/llm-wiki-nano/
 ```
 
+## Upgrading
+
+Re-run the same install command. The skill version lives in the
+`version:` field of `SKILL.md` frontmatter, so it travels with whatever
+gets installed; the installer reads it and reports the change before
+overwriting (`upgrading: 0.1.0 -> 0.2.0`, or `unversioned` for copies
+installed before versioning existed).
+
+If you copied `resources/agents-template.md` into a wiki, that wiki
+records the skill version it is maintained under. A skill upgrade does
+not rewrite existing wikis — after upgrading, run a lint in each wiki
+under the new rules and bump the recorded version.
+
 Note for Kimi Code users: the `SKILL.md` frontmatter carries one
 Kimi-specific extension field, `whenToUse`, to improve automatic
 triggering. Other agents ignore unknown frontmatter fields, so runtime

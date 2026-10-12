@@ -57,6 +57,19 @@ scripts without an equally explicit exemption.
 6. **English everywhere.** This repo's artifacts are English; keep it
    consistent regardless of the conversation language.
 
+## Versioning
+
+`version: x.y.z` in the `SKILL.md` frontmatter is the only version marker;
+it travels with whatever gets installed. There is no CHANGELOG — the git
+history is the history.
+
+- Bump **minor** for changes to operations, hard rules, or page templates;
+  **patch** for wording fixes that change no behavior.
+- Tag the release commit `vx.y.z` so installers can pin a version.
+- The installer reports `installed -> incoming` on every run; keep its
+  version parsing (frontmatter `version:` field) in sync if the
+  frontmatter layout ever changes.
+
 ## How to test a change
 
 There is no automation. The test loop is manual:

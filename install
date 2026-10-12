@@ -59,12 +59,21 @@ fi
 mkdir -p "$TMP/repo"
 tar -xzf "$TMP/repo.tar.gz" -C "$TMP/repo" --strip-components=1
 [ -f "$TMP/repo/SKILL.md" ] || { echo "error: tarball did not contain SKILL.md" >&2; exit 1; }
+new_version=$(sed -n '/^---$/,/^---$/{s/^version:[[:space:]]*//p;}' "$TMP/repo/SKILL.md" | head -n 1)
 
 dests="$root/.agents/skills/$NAME"
 if [ "$claude" = true ]; then
     dests="$dests $root/.claude/skills/$NAME"
 fi
 for dest in $dests; do
+    if [ -f "$dest/SKILL.md" ]; then
+        old_version=$(sed -n '/^---$/,/^---$/{s/^version:[[:space:]]*//p;}' "$dest/SKILL.md" | head -n 1)
+        case "$old_version" in
+            "")               echo "upgrading: unversioned -> $new_version" ;;
+            "$new_version")   echo "reinstalling: $new_version" ;;
+            *)                echo "upgrading: $old_version -> $new_version" ;;
+        esac
+    fi
     rm -rf "$dest"
     mkdir -p "$dest"
     cp -R "$TMP/repo/SKILL.md" "$TMP/repo/resources" "$dest/"
