@@ -32,6 +32,7 @@ scripts without an equally explicit exemption.
 |------|----------|------|
 | `SKILL.md` | agents at runtime | The skill. Trigger conditions, wiki layout, 3 operations, 6 hard rules |
 | `resources/page-templates.md` | agents at runtime | Page formats, loaded on demand from SKILL.md |
+| `resources/large-sources.md` | agents at runtime | Delegated ingest of long sources, non-text source archiving, hub/part pages, borrowed content |
 | `resources/agents-template.md` | wiki owners | Optional per-wiki domain conventions template |
 | `install` | humans | One-command installer (exception to the prime directive) |
 | `README.md` | humans | Pitch, install, quickstart, philosophy |

@@ -42,15 +42,27 @@ Trigger: "ingest this", "add to wiki", a new file appears in `raw/`.
 
 1. Read `index.md` and skim `log.md` tail to load current state.
 2. Read the source **in full**. Never ingest from a summary or another page.
-3. If the source came from outside (URL, paste), save a faithful copy to
-   `raw/<topic>/<YYYY-MM-DD>-<slug>.md` first. `raw/` is append-only.
-4. Discuss key takeaways with the human before writing, when they are present.
+   Sources too long for one context, or not plain text (PDF, slides):
+   follow `resources/large-sources.md`.
+3. Archive the source: outside text (URL, paste) as a faithful copy in
+   `raw/<topic>/<YYYY-MM-DD>-<slug>.md`; non-text sources per
+   `resources/large-sources.md`. `raw/` is append-only.
+4. Before writing, discuss with the human when present: scope (full or
+   partial), page language, granularity, and what to compress away (e.g.
+   click-by-click UI steps). If absent, choose defaults, note in `log.md`.
 5. Write or update pages (see `resources/page-templates.md`):
-   - always: one `pages/sources/` page for the source itself;
+   - always: one `pages/sources/` page for the source itself (a hub with
+     part pages for book-length sources);
    - then every concept/entity/synthesis page the source touches —
      one source commonly touches 5–15 pages.
 6. Update `index.md` (add new pages, refresh changed one-liners).
 7. Append to `log.md`: `## [YYYY-MM-DD] ingest | <title>` + what was touched.
+8. Verify before finishing:
+   - every `[[wikilink]]` in new/changed pages resolves to an existing page;
+   - every new page has at least one inbound link;
+   - spot-check 2–3 anchored claims per page against the raw source;
+   - the log entry notes scope, extraction command (if any), and known
+     limitations (e.g. unextractable figures).
 
 ## Operation: Query
 
@@ -74,15 +86,20 @@ Check and report (fix only with the human's approval):
 - orphan pages with no inbound links;
 - concepts mentioned repeatedly but lacking their own page;
 - broken cross-references and index entries;
-- claims whose cited source does not actually support them (spot-check).
+- claims whose cited source does not actually support them (spot-check);
+- anchors in non-canonical format, or citing an undeclared/ambiguous alias.
 
 Append `## [YYYY-MM-DD] lint | <findings summary>` to `log.md`.
 
 ## Hard rules
 
-1. **Traceable or unwritten.** Every non-trivial claim carries an anchor:
-   `raw/` file + section, or source URL. If you cannot anchor it, do not
-   write it — note it as an open question instead.
+1. **Traceable or unwritten.** Every non-trivial claim carries a canonical
+   anchor: `(<alias> §<section>)` or `(<alias> p.<page>)`, where `<alias>`
+   is declared in the source page's frontmatter and unique in the wiki.
+   Prefer the document's own numbering (section first, then page); never
+   cite line numbers of an extraction transcript — they are tool
+   artifacts. If you cannot anchor it, do not write it — note it as an
+   open question instead.
 2. **Read before write.** Never update a page you have not read in full
    during this session. The index one-liner is not enough.
 3. **Dedupe first.** Before creating a page, search `index.md` and existing

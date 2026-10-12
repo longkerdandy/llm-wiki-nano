@@ -8,12 +8,14 @@ frontmatter and ends with a provenance section. Wikilinks use the
 
 ## Source page — `pages/sources/<slug>.md`
 
-One per ingested source. Faithful compression, no commentary.
+One per ingested source. Faithful compression, no commentary. Book-length
+sources get a hub page plus part pages — see `resources/large-sources.md`.
 
 ```markdown
 ---
 kind: source
 title: <original title>
+alias: <short-id>   # unique in this wiki; anchors cite it
 origin: <raw/ path or URL>
 ingested: YYYY-MM-DD
 ---
@@ -24,8 +26,8 @@ ingested: YYYY-MM-DD
 <5–10 lines: what this source says, in its own terms>
 
 ## Key claims
-- <claim 1> — <section/anchor in raw>
-- <claim 2> — <section/anchor in raw>
+- <claim 1> — (<alias> §<section>)
+- <claim 2> — (<alias> p.<page>)
 
 ## Concepts and entities
 - [[concept-a]] — <how this source relates to it>
@@ -120,3 +122,10 @@ status: draft | stable
 ## Unresolved
 <what cannot yet be decided, and what source would settle it>
 ```
+
+---
+
+## Long sources and borrowed content
+
+Hub/part pages for book-length sources and registration of borrowed
+content: see `resources/large-sources.md`.

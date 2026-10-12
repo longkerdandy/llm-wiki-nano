@@ -28,6 +28,7 @@ llm-wiki-nano is the pattern with nothing added:
 SKILL.md                        # the entire skill: layout, 3 operations, 6 hard rules
 resources/
 ├── page-templates.md           # source / concept / entity / synthesis page formats
+├── large-sources.md            # delegated ingest of long sources, non-text archiving
 └── agents-template.md          # optional per-wiki domain conventions
 install                         # optional one-command installer (curl | bash)
 ```
@@ -41,6 +42,9 @@ install                         # optional one-command installer (curl | bash)
   sources — never silently averaged away.
 - **Full traceability.** Every claim in the wiki carries an anchor back to
   the raw source. If the agent can't anchor it, it doesn't write it.
+- **Scales to real documents.** Book-length and binary sources (PDFs,
+  slides) get a delegated-ingest protocol, extraction transcripts, and
+  canonical anchors — still without any tooling.
 - **Freedom from infrastructure.** No database, no server, no build. Your
   wiki is a directory of Markdown — browse it in Obsidian, version it with
   git, take it anywhere.
